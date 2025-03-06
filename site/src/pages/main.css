@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* body{
+    background: rgb(20,112,23);
+    background: linear-gradient(34deg, rgba(20,112,23,1) 0%, rgba(17,97,47,1) 39%, rgba(42,124,78,1) 100%);
+
+    color: white !important;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: linear-gradient(34deg, rgba(20,112,23,1) 0%, rgba(17,97,47,1) 39%, rgba(42,124,78,1) 100%) !important;
+    color: white !important;
+    overflow: hidden; /* Отключает возможные лишние прокрутки 
+} 
+ 
+#root {
+    background: none !important;
+} */
+
+
+.title{
+    font-family: "Press Start 2P", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+.list{
+    background-color: rgba(250, 250, 250, 0.571);
+}
