@@ -38,7 +38,7 @@ class User{
 
     joinChannel(Channel){
         if (this.currentChannel) {
-            this.currentChannel.removeUser(this)
+            this.currentChannel.deleteUser(this)
         }
 
         Channel.addUser(this)
