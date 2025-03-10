@@ -15,7 +15,7 @@ const theme = createTheme({
       MuiListItemText: {
         styleOverrides: {
           primary: {
-            fontFamily: "Arial, sans-serif", // Укажите шрифт для ListItemText
+            fontFamily: "Arial, sans-serif", 
           },
         },
       },
@@ -28,7 +28,7 @@ export default function Main() {
       <CssBaseline />
       <Box display="flex" justifyContent="space-between" alignItems="center" p={50} sx={{
          background: "linear-gradient(34deg, rgba(20,112,23,1) 0%, rgba(17,97,47,1) 39%, rgba(42,124,78,1) 100%)",
-         minHeight: "100vh", // Чтобы фон покрывал всю страницу
+         minHeight: "100vh", 
          display: "flex",
          flexDirection: "column",
          justifyContent: "center",
