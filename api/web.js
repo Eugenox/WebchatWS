@@ -10,7 +10,7 @@ const app = express()
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-const buildPath = path.join(__dirname, 'webchat/build') //../build
+const buildPath = path.join(__dirname, '../site/build') //../build
 
 app.use(express.static(buildPath))
 app.use(express.json())

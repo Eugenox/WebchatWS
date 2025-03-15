@@ -79,7 +79,8 @@ class Channel{
     }
 
     pushMessage(data){
-        data.id = this._history_msglastID + 1
+        this._history_msglastID += 1
+        data.id = this._history_msglastID
         this.history.push(data)
         return data
     }
@@ -175,7 +176,7 @@ wss.on('connection', (ws) => {
         'textmessage': () => {
             if (!user.currentChannel || user.mute) return console.log(`[BLOCK] Bloked message from ${user.name} [${user.mute, user.currentChannel}]`);
             const { message } = data;
-            user.currentChannel.broadcast({ type: 'textmessage', date: Date.now(), user: user.Info});
+            user.currentChannel.broadcast({ type: 'textmessage', date: Date.now(), user: user.Info, message});
             if (debug) console.log(`[DEBUG] ${user.name}: ${message}`);
         },
         'getupdate': () => user.send({ type: 'update', list: user.currentChannel?.usersGetAll() || []}),

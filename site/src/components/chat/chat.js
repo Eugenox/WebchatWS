@@ -79,7 +79,7 @@ export default function Chat({ setsocket, ws_output, loading }) {
                   );
                   break;
                 case "textmessage":
-                  const { message } = data;
+                  const {  message } = data;
                   return (
                     <ChatMessage
                       key={`${index}-${idx}`}
