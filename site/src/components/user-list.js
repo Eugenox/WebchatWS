@@ -1,5 +1,6 @@
-import {ListItem, ListItemAvatar, ListItemText, Box, Avatar, Typography, Divider, Chip, Skeleton, CircularProgress} from '@mui/material'
+import {ListItem, ListItemAvatar, ListItemText, Box, Avatar, Typography, Divider, Chip, Tooltip, CircularProgress} from '@mui/material'
 import { useEffect, useState } from 'react';
+import StarsIcon from '@mui/icons-material/Stars';
 import { FixedSizeList } from 'react-window';
 
 
@@ -29,13 +30,14 @@ export default function UserList({ws_output, loading}){
       
 
         const user = users[index];
-     
-        const {id, username, color} = user
+        console.log(users)
+        const {name, color, isAdmin} = user
         return <ListItem key={index} component="div" style={style}>
             <ListItemAvatar >
-            <Avatar sx={{ bgcolor: `${color}` }}>{username[0]}</Avatar>
+            <Avatar sx={{ bgcolor: `${color}` }}>{name[0]}</Avatar>
             </ListItemAvatar>
-            <ListItemText primary={username} />
+            <ListItemText primary={name} />
+            { isAdmin ? (<Tooltip title={"Власник каналу"}><Chip  icon={<StarsIcon/>} color="success" size='small'/></Tooltip>) : (<></>)}
         </ListItem>
       }
 

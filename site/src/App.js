@@ -10,9 +10,13 @@ import ChatPage from "./pages/chatpage"
 import { theme } from "./theme";
 import { ThemeProvider } from "@mui/material/styles";
 
+import {UUID} from './components/utils'
 
 function App() {
   
+  useEffect(()=>{
+    if (!localStorage.getItem("session")) localStorage.setItem("session", UUID())   // looks dummy, this clientsideID
+  }, [])
 
   //* WEBSOCKETS
   const [socketUrl, setSocketUrl] = useState("");

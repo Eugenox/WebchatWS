@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import ReCAPTCHA from "react-google-recaptcha"
-
+import connection from '../config.json'
 import Button from "@mui/material/Button"
 import TextField from "@mui/material/TextField"
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
@@ -56,10 +56,10 @@ export default function CreateChannelForm({isOpened, onClose }) {
         }
         
         if (isErr) return
-        const response = await fetch("http://localhost/createChannel", {
+        const response = await fetch(`${connection.domain}/createChannel`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name: input.trim(), token}),
+            body: JSON.stringify({ name: input.trim(), token, creatorSID: localStorage.getItem("session")}),
         })
 
         const data = await response.json()

@@ -45,23 +45,23 @@ export default function Chat({ setsocket, ws_output, loading }) {
         {/* <ChatMessage  message={{content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. adm,;kadadl'a,dlald,a'd,'ad,a'l,", time: Date.now()}}/> */}
 
         {ws_output.map((entry, index) => {
-          if (entry.type === "textmessage") {
-            // Обработка текстового сообщения
-            const { username, message, color, date } = entry;
+          if (entry.type === "textmessage") { // !rewrite to cool antiswitch
+           
+            const { user, message, date } = entry;
             return (
               <ChatMessage
                 key={index}
-                user={{ nick: username, userColor: color }}
+                user={user}
                 message={{ content: message, time: date }}
               />
             );
           } else if (entry.type === "history" && entry.message) {
             return entry.message.map((data, idx) => {
-              const { username, type, color, date } = data;
+              const { user, type, date } = data;
 
               switch (type) {
                 case "login":
-                  let msg_login = `Користувач ${username} приєднався до чату`;
+                  let msg_login = `Користувач ${user.name} приєднався до чату`;
                   return (
                     <ChatMessage
                       key={`${index}-${idx}`}
@@ -70,7 +70,7 @@ export default function Chat({ setsocket, ws_output, loading }) {
                   );
                   break;
                 case "disconnect":
-                  let msg_leave = `Користувач ${username} від'єднався від чату, до побачення!`;
+                  let msg_leave = `Користувач ${user.name} від'єднався від чату, до побачення!`;
                   return (
                     <ChatMessage
                       key={`${index}-${idx}`}
@@ -83,26 +83,13 @@ export default function Chat({ setsocket, ws_output, loading }) {
                   return (
                     <ChatMessage
                       key={`${index}-${idx}`}
-                      user={{ nick: username, userColor: color }}
+                      user={user}
                       message={{ content: message, time: date }}
                     />
                   );
                   break;
               }
-              // const content =
-              //     data.type === "login"
-              //         ? `${username} вошел в чат`
-              //         : data.type === "disconnect"
-              //         ? `${username} вышел из чата`
-              //         : "";
-              // return (
-              //     <ChatMessage
-              //         key={`${index}-${idx}`}
-              //         user={{ nick: username, userColor: color }}
-              //         message={{ content, time: date }}
-              //     />
-              // );
-              console.log(data);
+              
             });
           }
           return null; 

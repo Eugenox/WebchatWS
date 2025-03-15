@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import connection from '../config.json'
 import Chat from "../components/chat/chat";
 
 import TextInput from "../components/chat/text-input";
@@ -43,7 +43,7 @@ export default function ChatPage({ data }){
         (async () => {
           try {
               console.log(process.env.PUBLIC_URL)
-              const response = await fetch(`http://localhost/getChannels`);
+              const response = await fetch(`${connection.domain}/getChannels`);
               const data = await response.json();
               
                if ( !data.find((c) => c.name == query) ) {

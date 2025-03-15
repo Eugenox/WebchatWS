@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import connection from '../config.json'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -49,8 +50,8 @@ export default function LoginForm({setsocket, ws_input, query, onClose}) {
             const username = formJson.input_username;
       
             
-            setsocket("ws://localhost:3245")
-            ws_input(JSON.stringify({ type: "login", username: username, channelName: query}))
+            setsocket(`${connection.domain_ws}`)
+            ws_input(JSON.stringify({ type: "login", username: username, channelName: query, sid: localStorage.getItem("session")}))
             handleClose();
           },
         }}

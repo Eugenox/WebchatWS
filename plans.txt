@@ -1,0 +1,9 @@
+[api]
+- DeleteMessage handler
+- Handle connection to NONChannel users
+
+[site]
+- Showing an Admin bage (star) near: message, userlits (maybe should send full userObj to front)
+- Return to main page button on toolbar
+- Clear chat element after dissconnect
+- display current online in channel

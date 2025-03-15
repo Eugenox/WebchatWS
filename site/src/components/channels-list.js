@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import connection from '../config.json'
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -20,9 +21,9 @@ export default function ChannelsList() {
     const [isCHCreateOpen, setCHCreateOpen] = useState(false);
     useEffect(() => {
 
-      (async () => {
+      const GetChannels = async () => {
         try {
-            const response = await fetch("http://localhost/getChannels");
+            const response = await fetch(`${connection.domain}/getChannels`); //! HTTPS
             if (!response.ok) throw new Error("Помилка завантаження списку каналів");
             const data = await response.json();
 
@@ -30,8 +31,12 @@ export default function ChannelsList() {
         } catch(err) {
           console.error(err);
         }
-      })()
+      }
 
+      GetChannels()
+
+      const UPDInterval = setInterval(GetChannels, 3000)
+      return () => clearInterval(UPDInterval)
     }, [])
 
    const DEFAULT_ICONS = {
@@ -50,7 +55,7 @@ export default function ChannelsList() {
                         <ListItemIcon sx={{ color:"#8a9f90" }}>
                             {c.isDefault && DEFAULT_ICONS[i] && DEFAULT_ICONS[i]() || <ArrowForwardIcon />}
                         </ListItemIcon>
-                        <ListItemText primary={"#" + c.name} />
+                        <ListItemText primary={`#${c.name} [${c.online}]`} />
                     </ListItemButton>
                 </ListItem>
                 {i == Object.keys(DEFAULT_ICONS).length - 1 && <Divider sx={{"&::before, &::after": {borderColor: "#439647",}}}>Інші канали</Divider>}
