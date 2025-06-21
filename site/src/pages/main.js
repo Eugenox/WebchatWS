@@ -38,10 +38,10 @@ export default function Main() {
          color: 'rgba(243, 239, 239, 0.93)'
       }}>
         <Typography variant="h4" gutterBottom>
-          ЛАСКАВО ПРОСИМО ДО ВЕБ-ЧАТУ!
+          Welcome to WSChat!
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          Почніть спілкування за пару кліків
+          Start a online talk with few clicks
         </Typography>
         <ChannelsList className="list" />
       </Box>

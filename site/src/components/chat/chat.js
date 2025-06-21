@@ -2,7 +2,9 @@ import React, { useEffect, useRef } from "react";
 import ChatMessage from "./chat-message";
 
 import { Box, Skeleton } from "@mui/material";
+
 export default function Chat({ setsocket, ws_output, loading }) {
+  
   console.log(ws_output);
 
   const ChatRef = useRef();
@@ -61,7 +63,7 @@ export default function Chat({ setsocket, ws_output, loading }) {
 
               switch (type) {
                 case "login":
-                  let msg_login = `Користувач ${user.name} приєднався до чату`;
+                  let msg_login = `${user.name} joined. Nice to meet you!`;
                   return (
                     <ChatMessage
                       key={`${index}-${idx}`}
@@ -70,7 +72,7 @@ export default function Chat({ setsocket, ws_output, loading }) {
                   );
                   break;
                 case "disconnect":
-                  let msg_leave = `Користувач ${user.name} від'єднався від чату, до побачення!`;
+                  let msg_leave = `${user.name} left this channel. Bye!`;
                   return (
                     <ChatMessage
                       key={`${index}-${idx}`}

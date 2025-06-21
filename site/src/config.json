@@ -1,4 +1,4 @@
 {
-    "domain": "http://localhost",
-    "domain_ws": "http://localhost:3245"
+    "domain": "https://chat.webhop.me",
+    "domain_ws": "wss://chat.webhop.me"
 }

@@ -22,10 +22,12 @@ function App() {
   const [socketUrl, setSocketUrl] = useState("");
   const [WS_MESSAGE_GET_HISTORY, WS_MESSAGE_SET_HISTORY] = useState([]);
   const [WS_USERS_GET, WS_USERS_SET] = useState([]);
+
   const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl, {
     onOpen: () => {
       console.log("[WS] Connection Successfull");
       sendMessage(JSON.stringify({ type: "getupdate" }));
+      
     },
     onClose: () => console.log("[WS] Connection Closed"),
     shouldReconnect: () => true,
@@ -51,7 +53,7 @@ function App() {
  
 
   const TransferData = {
-    setSocketUrl, WS_MESSAGE_GET_HISTORY, WS_USERS_GET, sendMessage, lastMessage, readyState,
+    setSocketUrl, WS_MESSAGE_GET_HISTORY, WS_MESSAGE_SET_HISTORY, WS_USERS_GET, sendMessage, lastMessage, readyState,
   }
   return (
     <>

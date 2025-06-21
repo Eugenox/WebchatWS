@@ -39,19 +39,19 @@ export default function CreateChannelForm({isOpened, onClose }) {
 
         if (!input.trim()) {
             setErr(true)
-            setErrText("Назва не повинна бути порожньою")
+            setErrText("You can`t create a channel without name")
             return 
         }
     
         if (!token) {
             setErr(true)
-            setErrText("Пройдіть перевірку на бота")
+            setErrText("Sorry, but CAPTHA test is required")
             return
         }
     
         if (input.trim().length > 24) {
             setErr(true)
-            setErrText("Максимальна довжина назви - 24 символи")
+            setErrText("Your channel name is to long (Max: 24 symbols)")
             return
         }
         
@@ -68,7 +68,7 @@ export default function CreateChannelForm({isOpened, onClose }) {
         } else {
             alert(data.responsetext)
         }
-        setToken()
+        //setToken()
     }
 
     return (

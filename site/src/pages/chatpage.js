@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import connection from '../config.json'
 import Chat from "../components/chat/chat";
 
@@ -25,21 +25,35 @@ import {
 export default function ChatPage({ data }){
     const {query} = useParams()
     const navigate = useNavigate()
+    const location = useLocation();
     const [userListOpen, setUserListOpen] = useState(null)
     const [isLoading, setLoading] = useState(true)
     const [isInvalid, setInvalid] = useState(false)
 
-    const {setSocketUrl, WS_MESSAGE_GET_HISTORY, WS_USERS_GET, sendMessage, lastMessage, readyState} = data
+    const {setSocketUrl,WS_MESSAGE_SET_HISTORY, WS_MESSAGE_GET_HISTORY, WS_USERS_GET, sendMessage, lastMessage, readyState} = data
      const WS_STATUS = {
-        [readyState.CONNECTING]: "Підключення",
-        [readyState.OPEN]: "З'єднано",
+        [readyState.CONNECTING]: "Connecting",
+        [readyState.OPEN]: "Open",
         [readyState.CLOSING]: "Closing",
         [readyState.CLOSED]: "Closed",
         [readyState.UNINSTANTIATED]: "Uninstantiated",
       }[readyState];
 
       useEffect(() => {
+        document
+          .querySelector('title')
+          ?.setAttribute("content", `#${query}`);
+        document
+          .querySelector('meta[property="og:description"]')
+          ?.setAttribute("content", `Join to ${query}`);
+      }, [query]);
 
+      useEffect(() => {
+        WS_MESSAGE_SET_HISTORY([]);
+      }, [location.pathname]); 
+
+      useEffect(() => {
+        
         (async () => {
           try {
               console.log(process.env.PUBLIC_URL)
@@ -59,9 +73,10 @@ export default function ChatPage({ data }){
   
       }, [])
     
+      
 
     if (isInvalid) {
-        const text = "Нажаль, ви перейшли до неіснуючого чату, або чату, який було видалено. За бажанням, ви можете створити чат з таким ім'ям."
+        const text = "Sorry, but this chat doesn`t exist. You can go to the main page and create your own channel."
         const handleOK = () => navigate("/")
         return <AlertDialog text={text} handleOK={handleOK}/>
     }
@@ -95,6 +110,7 @@ export default function ChatPage({ data }){
       <LoginForm setsocket={setSocketUrl} ws_input={sendMessage} query={query} onClose={() => { 
         setLoading(false); 
       }}/>
+
       <Grid container spacing={1}>
         <Grid size={{ xs: 12, sm: 8, md: 8 }}>
           <Chat ws_output={WS_MESSAGE_GET_HISTORY} loading={isLoading}/>

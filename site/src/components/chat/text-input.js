@@ -37,8 +37,8 @@ export default function TextInput({ws_input}) {
       <form autoComplete="off">
         <TextField
           id="outlined-textarea"
-          label="Написати повідомлення"
-          placeholder="Ваш текст"
+          label="Write something"
+          placeholder="Your message"
           value = {text}
 
           maxRows={4}

@@ -37,7 +37,7 @@ export default function UserList({ws_output, loading}){
             <Avatar sx={{ bgcolor: `${color}` }}>{name[0]}</Avatar>
             </ListItemAvatar>
             <ListItemText primary={name} />
-            { isAdmin ? (<Tooltip title={"Власник каналу"}><Chip  icon={<StarsIcon/>} color="success" size='small'/></Tooltip>) : (<></>)}
+            { isAdmin ? (<Tooltip title={"Channel owner"}><Chip  icon={<StarsIcon/>} color="success" size='small'/></Tooltip>) : (<></>)}
         </ListItem>
       }
 
@@ -62,7 +62,7 @@ export default function UserList({ws_output, loading}){
                width: "100%",
             
             }}>
-                Користувачі онлайн
+                Users in channel
                 <Divider>
                     <Chip label={users.length} size="small" />
                 </Divider>

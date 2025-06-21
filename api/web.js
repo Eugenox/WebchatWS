@@ -29,7 +29,7 @@ app.get('/getChannels', (req,res) => {
     res.send(getChannelsList())
 })
 app.post('/createChannel', async (req, res) => {
-    const { name, token } = req.body
+    const { name, token, creatorSID } = req.body
     if (!name || !token) return res.status(400).json({ error: "All field are required" })
 
     try {
@@ -49,7 +49,7 @@ app.post('/createChannel', async (req, res) => {
         
         
         console.log("Created channel ", name)
-        const result = createChannel(name)
+        const result = createChannel(name, false, creatorSID)
         res.status(200).json(result)
 
     } catch (error) {

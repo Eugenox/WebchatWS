@@ -24,7 +24,7 @@ export default function ChannelsList() {
       const GetChannels = async () => {
         try {
             const response = await fetch(`${connection.domain}/getChannels`); //! HTTPS
-            if (!response.ok) throw new Error("Помилка завантаження списку каналів");
+            if (!response.ok) throw new Error("[ERROR] Can`t load a channels list");
             const data = await response.json();
 
             setChannels(data);
@@ -47,7 +47,7 @@ export default function ChannelsList() {
     <Box sx={{ width: '100%', maxWidth: 360, bgcolor: "rgba(0, 0, 0, 0.24)", margin: "0 auto", borderRadius: '20px' }}>
         <List>
         <Divider sx={{"&::before, &::after": {borderColor: "#439647",},
-  }}>Основні канали</Divider>
+  }}>Main channels</Divider>
         {channels.map((c, i) => (
             <>
                 <ListItem key={c.name} disablePadding>
@@ -58,7 +58,7 @@ export default function ChannelsList() {
                         <ListItemText primary={`#${c.name} [${c.online}]`} />
                     </ListItemButton>
                 </ListItem>
-                {i == Object.keys(DEFAULT_ICONS).length - 1 && <Divider sx={{"&::before, &::after": {borderColor: "#439647",}}}>Інші канали</Divider>}
+                {i == Object.keys(DEFAULT_ICONS).length - 1 && <Divider sx={{"&::before, &::after": {borderColor: "#439647",}}}>Community channels</Divider>}
             </>
             ))}
           <ListItem disablePadding>
@@ -66,7 +66,7 @@ export default function ChannelsList() {
                 <ListItemIcon sx={{ color:"#8a9f90" }}>
                     <AddCommentIcon/>
                 </ListItemIcon>
-              <ListItemText primary="Створити канал"  />
+              <ListItemText primary="Create a new channel"  />
             </ListItemButton>
           </ListItem>
         </List>

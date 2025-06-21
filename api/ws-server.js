@@ -64,7 +64,7 @@ class User{
     }
 }
 class Channel{
-    constructor(name, isDefault = false, creator = null){
+    constructor(name, isDefault = false, creatorSID){
         this.name = name
         this._logPrefix = `[#${this.name}]`
         this.isDefault = isDefault  // false for community chans
@@ -103,7 +103,7 @@ class Channel{
 
     addUser(user) {
         if (user.sid === this.creatorSID) this.Admin = user
-
+        console.log(user.name, this.Admin, user.isAdmin)
         this.users.push(user)
         this.broadcast({ type: 'login', date: Date.now(), user: user.Info})
         this.broadcastUserList()
@@ -126,7 +126,7 @@ class Channel{
     }
     
     set Admin(user){
-        if (!this.users.includes(user)) throw new Error(`${_logPrefix} Attempt to set not exist user to Admin.`)
+        if (!this.users.includes(user)) throw new Error(`${this._logPrefix} Attempt to set not exist user to Admin.`)
         
         if (this._Admin !== null){
             this._Admin.isAdmin = false
@@ -182,7 +182,7 @@ wss.on('connection', (ws) => {
         'getupdate': () => user.send({ type: 'update', list: user.currentChannel?.usersGetAll() || []}),
 
         'deletemessage': () => {
-            if (!user.currentChannel.Admin == user) throw new Error('[DeleteMessageERR] Attempt to delete message without admin permissions')
+            if (user.currentChannel.Admin != user) throw new Error('[DeleteMessageERR] Attempt to delete message without admin permissions')
             const { msgID } = data
             user.currentChannel.deleteMessage( msgID )
         }

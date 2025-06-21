@@ -22,7 +22,7 @@ export default function AlertDialog({text, handleOK}) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Де це я?"}
+          {"Huh? 😵‍💫"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">

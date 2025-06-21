@@ -11,7 +11,7 @@ import { Box, Avatar, Typography, Chip, Tooltip } from '@mui/material';
 import {FormateDate} from "../utils"
 
 const botColor = "#1976d2" // need to get color from "primary"
-const botDesc = "Системне повідомлення."
+const botDesc = "System message"
 export default function ChatMessage(props){
     let {user, message} = props
     const {content, time} = message
@@ -44,7 +44,7 @@ export default function ChatMessage(props){
             <Typography variant="caption" >{` [${FormateDate(time)}] `}</Typography>
             <Typography variant="caption" >{name}</Typography>
             { isSystem ? (<Tooltip title={botDesc}><Chip label="System" icon={<VerifiedIcon/>} color="primary" size='small'/></Tooltip>) : (<></>)}
-            { isAdmin ? (<Tooltip title={botDesc}><Chip label="Власник каналу" icon={<StarsIcon/>} color="success" size='small'/></Tooltip>) : (<></>)}
+            { isAdmin ? (<Tooltip title={botDesc}><Chip label="Channel owner" icon={<StarsIcon/>} color="success" size='small'/></Tooltip>) : (<></>)}
         </Box>
 
         <Box

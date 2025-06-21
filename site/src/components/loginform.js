@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import connection from '../config.json'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -13,12 +13,21 @@ export default function LoginForm({setsocket, ws_input, query, onClose}) {
   const [input, setInput] = useState("")
   const [isErr, setErr] = useState(false)
 
+  useEffect(()=>{
+    const saved_name = localStorage.getItem('name')
+    if (saved_name){
+      setsocket(`${connection.domain_ws}`)
+      ws_input(JSON.stringify({ type: "login", username: saved_name, channelName: query, sid: localStorage.getItem("session")}))
+      setOpen(false);
+      onClose()
+    }
+  }, [])
   const handleClickOpen =()=>{
     setOpen(true)
   }
   
   const handleClose = () => {
-    if (!input.length > 0){
+    if (!input.length > 0 ){
         setErr(true)
     }else{
         setOpen(false);
@@ -35,7 +44,7 @@ export default function LoginForm({setsocket, ws_input, query, onClose}) {
 }
 
 
-  return (
+  return !localStorage.getItem('name') ? (
     <>
       <Dialog
         open={isOpen}
@@ -48,7 +57,7 @@ export default function LoginForm({setsocket, ws_input, query, onClose}) {
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries(formData.entries());
             const username = formJson.input_username;
-      
+            localStorage.setItem('name', username)
             
             setsocket(`${connection.domain_ws}`)
             ws_input(JSON.stringify({ type: "login", username: username, channelName: query, sid: localStorage.getItem("session")}))
@@ -56,10 +65,10 @@ export default function LoginForm({setsocket, ws_input, query, onClose}) {
           },
         }}
       >
-        <DialogTitle>Ласкаво просимо!</DialogTitle>
+        <DialogTitle>Welcome to #{query}!</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Як вас можна називати?
+            Enter your name bellow
           </DialogContentText>
           <TextField
             autoFocus
@@ -76,5 +85,5 @@ export default function LoginForm({setsocket, ws_input, query, onClose}) {
         </DialogActions>
       </Dialog>
     </>
-  );
+  ) : (<></>);
 }
